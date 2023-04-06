@@ -78,40 +78,40 @@
                                   <div
                                     class="flex items-center invisible group-hover:visible text-gray-500"
                                   >
-                                    <!-- <PencilSquareIcon class="h-4 w-4 mr-3 hover:text-blue-600" /> -->
                                     <IconCSS
                                       name="iconoir:edit-pencil"
                                       size="20"
                                       class="mr-3 hover:text-blue-600"
-                                    ></IconCSS>
-
-
-                                    <!-- <TrashIcon class="h-4 w-4 hover:text-red-600" /> -->
+                                      @click="edit(note)"
+                                    >
+                                    </IconCSS>
                                     <IconCSS
                                       name="bytesize:trash"
                                       size="16"
                                       class="hover:text-red-600"
+                                      @click="deleteNote(note, index)"
                                     ></IconCSS>
                                   </div>
                                 </div>
                                 <div class="mt-1 text-sm text-gray-700">
                                   <p class="text-wrap">{{ note.note }}</p>
+                                  <!-- <CollectionEdit
+                                    v-if="editSelectedNote.includes(note.uid)"
+                                    :uid="note.uid"
+                                    :note="note.note"
+                                    :open="true"
+                                    @edit="edit()"
+                                  /> -->
                                 </div>
                                 <div class="mt-2 space-x-2 text-sm">
-                                  <!-- <span class="font-medium text-gray-500">
+                                  <span class="font-medium text-gray-500">
                                     {{ user.date }}
                                   </span>
-                                  {{ "" }} -->
-                                  <!-- <span class="font-medium text-gray-500">
+                                  {{ "" }}
+                                  <span class="font-medium text-gray-500">
                                     &middot;
                                   </span>
                                   {{ " " }}
-                                  <button
-                                    type="button"
-                                    class="font-medium text-gray-900"
-                                  >
-                                    Reply
-                                  </button> -->
                                 </div>
                               </div>
                             </div>
@@ -140,24 +140,30 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 
-
 import { ref } from "vue";
+
 const open = ref(false);
 const getData = await useAuthLazyFetch(
-  "https://v1-orm-lib.mars.hipso.cc/notes/entity/CONTACTS/1363?project_id=1&offset=0&limit=100&sort_column=id&sort_direction=desc",
+  "https://v1-orm-lib.mars.hipso.cc/notes/entity/CONTACTS/1363?limit=100&offset=0&project_id=1&sort_column=id&sort_direction=desc"
 );
 const user = {
-  name: "Sailakshmi",
+  name: "sailakshmi",
   email: "whitney@example.com",
-   imageUrl:
+    imageUrl:
     "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
 };
 const notes = ref(getData.data.value);
-console.log("note--->", notes);
 const add = (data) => {
   notes.value.unshift(data);
 };
-
-
-//const { pending, data: users } = useAuthLazyFetch(link(), { server: false })
+const deleteNote= async (data, index) => {
+  await useAuthLazyFetchDelete(
+    `https://v1-orm-lib.mars.hipso.cc/notes/3fa85f64-5717-4562-b3fc-2c963f66afa6`
+  );
+  notes.value.splice(index, 1);
+};
+ const editNote=(data)=>{
+    console.log("data",data)
+  
+ };
 </script>

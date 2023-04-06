@@ -60,7 +60,6 @@
 import { ref, toRefs } from 'vue'
 
 
-
 interface NoteProps {
   entity_id: number
   project_id: number
@@ -70,7 +69,6 @@ interface NoteProps {
 const props = defineProps<NoteProps>()
 //const { uid, open, note } = toRefs(props)
 const textInput = ref('')
-
 
 
 const emit = defineEmits(['add'])
@@ -96,7 +94,5 @@ async function add() {
   textInput.value =''
   
 }
-
-
 
 </script>

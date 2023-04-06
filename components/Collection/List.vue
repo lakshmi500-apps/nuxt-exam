@@ -162,7 +162,7 @@ const deleteNote= async (data, index) => {
   );
   notes.value.splice(index, 1);
 };
- const editNote=(data)=>{
+ const edit=(data)=>{
     console.log("data",data)
   
  };
